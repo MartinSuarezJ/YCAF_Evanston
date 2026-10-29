@@ -1,23 +1,21 @@
 /*
- * Weather Station
+ * Youth Climate Action Fund Evanston Weather Station (Designed by Martin Suarez and Adan Ciprian)
  *
- * Version: 2.0.0
+ * Version: 0.1.0
  *
  * Controller (Driver):
- *  - ESP32: https://www.adafruit.com/product/3619
- *  - USB / DC / Solar Lithium Ion/Polymer charger: https://www.adafruit.com/product/390
- *  - MicroSD Card Reader: https://www.adafruit.com/product/254
- *  - PCF8523 Real Time Clock: https://www.adafruit.com/product/3295
+ *  - Adafruit Feather ESP32 S3 Feather: https://www.adafruit.com/product/5323
+ *  - Adafruit Datalogger FeatherWing: https://www.adafruit.com/product/2922
+ *  - Adafruit bq25185 USB / DC / Solar Charger with 5V Boost Board: https://www.adafruit.com/product/6106
  *  - Solar Panel (6V 5W): https://www.waveshare.com/solar-panel-6v-5w.htm
  *
  * Sensors:
  *  - BME680: https://www.adafruit.com/product/3660
- *  - SI1145: https://www.adafruit.com/product/1777
- *  - PMS7003: http://plantower.com/en/
+ *  - GY-906 MLX90614ESF Non-Contact Infrared Temperature Sensor Module IIC I2C Serial for Arduino: https://www.amazon.com/HiLetgo-MLX90614ESF-Non-contact-Infrared-Temperature/dp/B071VF2RWM
+ *  - PM2.5 Air Quality Sensor PMS5003: https://www.adafruit.com/product/3686
  *
  * Stevenson screen (Case):
  *  - La Crosse Sensor Weather Shield: https://www.lacrossetechnology.com/925-1418-sensor-weather-shield
- *  - 1"x0.75mm Fused Silica Disc: https://amazon.com
  *
  * Dependencies:
  *  - ArduinoJson: https://arduinojson.org/  V6.x or above
@@ -26,29 +24,19 @@
  *  - WiFiClientSecure: Arduino IDE
  *  - math: Arduino IDE
  *  - BME680: https://github.com/adafruit/Adafruit_BME680
- *  - SI1145: https://github.com/adafruit/Adafruit_SI1145_Library
+ *  - MLX90614: https://github.com/adafruit/Adafruit_MLX90614_Library
  *  - PMS5003: https://learn.adafruit.com/pm25-air-quality-sensor/arduino-code
- *  - MicroSD: https://github.com/adafruit/SD
  *
  *
  * Ethernet Pin Layout
- *
- * 1 - Ground
- * 2 - 5V
- * 3 - SDA
- * 4 - SCL
- * 5 - TX
- * 6 - RX
- * 7 - N/A
- * 8 - N/A
- *
+ * To Be Updated
  */
 
 /* Dependencies */
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <Adafruit_BME680.h>
-#include <Adafruit_SI1145.h>
+#include <Adafruit_MLX90614.h>
 #include <HTTPClient.h>
 #include <RTClib.h>
 #include <SD.h>
@@ -96,7 +84,7 @@ RTC_DATA_ATTR int ntp_last_update = 0;
 
 /* Define Sensors */
 RTC_PCF8523 rtc;
-Adafruit_SI1145 uv = Adafruit_SI1145();
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 Adafruit_BME680 bme;
 Plantower_PMS7003 pms7003 = Plantower_PMS7003();
 
