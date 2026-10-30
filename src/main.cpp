@@ -46,7 +46,7 @@
 #include <WiFiClientSecure.h>
 
 /* Github Libraries */
-#include <Plantower_PMS7003.h>
+#include <Plantower_PMS5003.h>
 
 /* Pin allocations */
 #define ADC_PIN A13 // Battery Volatage
@@ -86,7 +86,7 @@ RTC_DATA_ATTR int ntp_last_update = 0;
 RTC_PCF8523 rtc;
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 Adafruit_BME680 bme;
-Plantower_PMS7003 pms7003 = Plantower_PMS7003();
+Plantower_PMS5003 pms5003 = Plantower_PMS5003();
 
 /* Misc Variables */
 uint64_t chipid;
@@ -123,9 +123,9 @@ void setup()
   /* Initialize serial port */
   Serial.begin(115200);
 
-  /* Initialize PMS7001 Sensor */
+  /* Initialize PMS5003 Sensor */
   Serial1.begin(9600);
-  pms7003.init(&Serial1);
+  pms5003.init(&Serial1);
 
   /* Check if the RTC PCF8523 is available */
   if (!rtc.begin())
@@ -436,15 +436,15 @@ void GetSensorData(JsonDocument &data)
     return;
   }
 
-  while (!pms7003.hasNewData() || pms7003.getRawGreaterThan_0_3() == 0)
+  while (!pms5003.hasNewData() || pms5003.getRawGreaterThan_0_3() == 0)
   {
-    pms7003.updateFrame();
+    pms5003.updateFrame();
   }
 
-  if (pms7003.getErrorCode() > 0)
+  if (pms5003.getErrorCode() > 0)
   {
-    Serial.println("Sensor: " + String(pms7003.getHWVersion()));
-    Serial.println("Error: " + String(pms7003.getHWVersion()));
+    Serial.println("Sensor: " + String(pms5003.getHWVersion()));
+    Serial.println("Error: " + String(pms5003.getHWVersion()));
   }
 
   data["data"][TEMPERATURE] = bme.temperature;
@@ -458,16 +458,16 @@ void GetSensorData(JsonDocument &data)
   data["data"][LIGHT_UV] = uv.readUV();
   data["data"][UV_INDEX] = (int)round(uv.readUV() / 100.0);
 
-  data["data"][PM_ENV_1] = pms7003.getPM_1_0();
-  data["data"][PM_ENV_25] = pms7003.getPM_2_5();
-  data["data"][PM_ENV_100] = pms7003.getPM_10_0();
+  data["data"][PM_ENV_1] = pms5003.getPM_1_0();
+  data["data"][PM_ENV_25] = pms5003.getPM_2_5();
+  data["data"][PM_ENV_100] = pms5003.getPM_10_0();
 
-  data["data"][PARTICLE_SIZE_3] = pms7003.getRawGreaterThan_0_3();
-  data["data"][PARTICLE_SIZE_5] = pms7003.getRawGreaterThan_0_5();
-  data["data"][PARTICLE_SIZE_10] = pms7003.getRawGreaterThan_1_0();
-  data["data"][PARTICLE_SIZE_25] = pms7003.getRawGreaterThan_2_5();
-  data["data"][PARTICLE_SIZE_50] = pms7003.getRawGreaterThan_5_0();
-  data["data"][PARTICLE_SIZE_100] = pms7003.getRawGreaterThan_10_0();
+  data["data"][PARTICLE_SIZE_3] = pms5003.getRawGreaterThan_0_3();
+  data["data"][PARTICLE_SIZE_5] = pms5003.getRawGreaterThan_0_5();
+  data["data"][PARTICLE_SIZE_10] = pms5003.getRawGreaterThan_1_0();
+  data["data"][PARTICLE_SIZE_25] = pms5003.getRawGreaterThan_2_5();
+  data["data"][PARTICLE_SIZE_50] = pms5003.getRawGreaterThan_5_0();
+  data["data"][PARTICLE_SIZE_100] = pms5003.getRawGreaterThan_10_0();
 
   data["data"][HEAT_INDEX] = heatIndex(bme.temperature, bme.humidity);
   data["data"][DEW_POINT] = dewPoint(bme.temperature, bme.humidity);
