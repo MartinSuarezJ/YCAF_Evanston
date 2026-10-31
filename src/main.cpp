@@ -70,7 +70,6 @@
 #include <driver/rtc_io.h>
 #include <driver/gpio.h>
 #include <esp_sleep.h>
-#include <Plantower_PMS5003.h>
 
 /* Settings */
 #define STATION_ID "YCAF-01"  // Station number that will show up as BLE name.
@@ -115,7 +114,6 @@ RTC_PCF8523   rtc;
 Adafruit_BME680   bme;
 Adafruit_MLX90614   mlx = Adafruit_MLX90614();
 Adafruit_PM25AQI   aqi = Adafruit_PM25AQI();
-Adafruit_MAX17048   gauge;
 
 bool bmeOk = false, mlxOk = false, gaugeOk = false, sdOk = false, rtcOk = false;
 
