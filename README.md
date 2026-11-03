@@ -11,8 +11,8 @@ Urban heat islands disproportionately affect vulnerable communities, where limit
 |---|---|---|---|
 | Adafruit ESP32 S3 Feather | https://www.adafruit.com/product/5323 | $17.5 | One of the best microcontrollers on the market with the added benefit of seemless integration around the Adafruit feather ecosystem. |
 | Adafruit Featherwing Datalogger | https://www.adafruit.com/product/2922 | $8.95 | The datalogger featherwing can be easily attached to the esp32 s3 microcontroller and leverages an RTC (Real Time Clock) with independent SD storage, ensuring secure data and accurate timestamps. |
-| CR1220 Lithium Ion Battery for RTC | https://www.amazon.com/Cotchear-Battery-Lithium-Batteries-Electronic/dp/B07XQBL1M6 | 3.99 | Any CR1220 works to power the datalogger rtc. |
-| 16 GB MicroSD Card| https://www.amazon.com/SanDisk-Ultra-SDSQUNS-016G-GN3MN-UHS-I-microSDHC/dp/B074B4P7KD | 17.13 | Excellent SD Card for data storage. Rated for weather resistance and outdoor deployment. |
+| CR1220 Lithium Ion Battery for RTC | https://www.amazon.com/Cotchear-Battery-Lithium-Batteries-Electronic/dp/B07XQBL1M6 | $3.99 | Any CR1220 works to power the datalogger rtc. |
+| 16 GB MicroSD Card| https://www.amazon.com/SanDisk-Ultra-SDSQUNS-016G-GN3MN-UHS-I-microSDHC/dp/B074B4P7KD | $17.13 | Excellent SD Card for data storage. Rated for weather resistance and outdoor deployment. |
 | BME 680 Temp/Humidity/Pressure/VOC Sensor | https://www.adafruit.com/product/3660 | $18.95 | The BME 680 is one of the foremost environmental sensors which provides spot-on measurements even when compared to state-of-the-art systems. |
 | PMS 5003 Air Quality Sensor | https://www.adafruit.com/product/3686 | $39.99 | Excellent particular matter sensor commonly used in city-wide environmental monitoring stations with special accuracy for PM2.5, one of the most notorious pollutants. |
 | MLX90614 Infrared Surface Temperature Sensor | https://www.amazon.com/HiLetgo-MLX90614ESF-Non-contact-Infrared-Temperature/dp/B071VF2RWM | $15.99 | Excellent for higher resolution temperature readings to demonstrate the adverse effects of high pavement and asphalt concentrations. |
