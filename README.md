@@ -8,7 +8,7 @@ Urban heat islands disproportionately affect vulnerable communities, where limit
 ### Prototype BOM:
 
 | Component | Link | Price | Notes |
-|---|---|---|---|---|
+|---|---|---|---|
 | Adafruit ESP32 S3 Feather | https://www.adafruit.com/product/5323 | $17.5 | One of the best microcontrollers on the market with the added benefit of seemless integration around the Adafruit feather ecosystem. |
 | Adafruit Featherwing Datalogger | https://www.adafruit.com/product/2922 | $8.95 | The datalogger featherwing can be easily attached to the esp32 s3 microcontroller and leverages an RTC (Real Time Clock) with independent SD storage, ensuring secure data and accurate timestamps. |
 | CR1220 Lithium Ion Battery for RTC | https://www.amazon.com/Cotchear-Battery-Lithium-Batteries-Electronic/dp/B07XQBL1M6 | 3.99 | Any CR1220 works to power the datalogger rtc. |
