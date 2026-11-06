@@ -11,37 +11,27 @@
 #include <Wire.h>
 #include <Adafruit_MLX90614.h>
 
-// ========== Infrared Temperature Sensor ==========
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
-float currentTempC = mlx.readObjectTempC();
+float currentTempC = 0;
 
 void setup() {
+  Serial.begin(115200);
+  delay(1500);  // give USB serial time to connect
 
-  while (!mlx.begin()){
-    Serial.println("MLX90614 not found, retrying...");
+  while (!mlx.begin()) {
+    Serial.println(F("MLX90614 not found, retrying..."));
     delay(1000);
   }
-
-
-  // === Serial Initialization ===
-  Serial.begin(9600);
-
-  // === Initialize MLX90614 Sensor ===
-  mlx.begin();
+  Serial.println(F("MLX90614 ready"));
 }
 
 void loop() {
-    // === Read Object Temperature Once ===
   currentTempC = mlx.readObjectTempC();
-  
-  // Edited to remove button // === Serial Output (Once per Button Press) ===
-  Serial.println(F("=== Measurement Taken ==="));
+
   Serial.print(F("Object Temperature: "));
   Serial.print(currentTempC);
   Serial.println(F(" °C"));
-  Serial.println();
 
-  // Small delay to reduce loop frequency
-  delay(100);
+  delay(500);
 }
