@@ -9,8 +9,8 @@ Urban heat islands disproportionately affect vulnerable communities, where limit
 
 ### Electronics
 
-![ESP32S3](./images/esp32.png)
-![Electronics Schematic](./images/schem_pic.pdf)
+![ESP32S3](./images/esp32s3.jpg)
+![Electronics Schematic](./images/schematics.jpg)
 
 ### Prototype BOM:
 
