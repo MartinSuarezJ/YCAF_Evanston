@@ -14,8 +14,19 @@
 -> RX to TX1
 -> add more, I'm almost certain that there should be more
 */
-Adafruit_PM25AQI aqi = Adafruit_PM25AQI(); // Sets aqi to an object of the Adafruit_PM25AQI
-PM25_AQI_Data data;
+// static = private to this file, so these generic names can't clash with other sensor files
+static Adafruit_PM25AQI aqi = Adafruit_PM25AQI();
+static PM25_AQI_Data data;
+
+// aqi.read() returns false on partial frames (normal), so retry until timeout
+static bool PMS_readFrame(uint32_t timeoutMs){
+    uint32_t t0 = millis();
+    while (millis() - t0 < timeoutMs) {
+        if (aqi.read(&data)) return true;
+        delay(10);
+    }
+    return false;
+}
 
 /* Initialize
 -> Check if the sensor is there
@@ -23,16 +34,25 @@ PM25_AQI_Data data;
 -> If the sensor is not, do something that allows the other functions to be called without a sensor being there
 */
 bool PMS_init(PMS_sensor &d){
+    // Keep sensor awake (SET LOW = sleep)
+    pinMode(A3, OUTPUT);
+    digitalWrite(A3, HIGH);
+
+    // The library does not start the UART itself; begin_UART() only stores the pointer
+    Serial1.begin(9600, SERIAL_8N1, RX, TX);
+    aqi.begin_UART(&Serial1);
+
     // Wait for sensor to boot up
     delay(10000);
 
-    // Set up communication/connectivity?
-    if (! aqi.begin_UART(&Serial1)) {
+    // Detect the sensor by getting a real, checksum-valid frame
+    while (Serial1.available()) Serial1.read();
+    if (!PMS_readFrame(3000)) {
         Serial.println("Could not find the PMS5003 sensor!");
         d.status = false;
         return false;
     }
-    Serial.print("PMS5003 found!");
+    Serial.println("PMS5003 found!");
     d.status = true;
     return true;
 }
@@ -45,11 +65,13 @@ bool PMS_init(PMS_sensor &d){
 bool PMS_measure(PMS_sensor &d){
     
     // Check if sensor is up 
-    if(!aqi.read(&data)){
+    while (Serial1.available()) Serial1.read();   // drop stale frames
+    if(!PMS_readFrame(3000)){
         Serial.println("PMS5003 failed to read");
         d.status = false;
         return false;
     }
+    d.status = true;   // recover after a previous failed read
 
     // Save the data to the struct
     // Standard (calibrated against a lab reference)
