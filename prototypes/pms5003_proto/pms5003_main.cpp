@@ -11,8 +11,6 @@ Adafruit_PM25AQI aqi = Adafruit_PM25AQI();
 void setup(){
     // Wait for serial monitor to open
     Serial.begin(115200);
-    while(!Serial) delay(10);
-
     Serial.println("Adafruit PMS5003 Air Quality Sensor");
     
     // Wait for sensor to boot up
@@ -29,7 +27,7 @@ void setup(){
 void loop(){
     PM25_AQI_Data data;
 
-    if (! aqi.read(&data)){
+    if (!aqi.read(&data)){
         Serial.println("Could not read from AQI");
 
         delay(500);
