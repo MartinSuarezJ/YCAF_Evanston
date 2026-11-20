@@ -1,14 +1,23 @@
 // functions for the bme680
 
 // Dependencies
-#include <Arduino.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
 #include "sensors.h"
 
 /* Wiring and setup
 -> add more, I'm almost certain that there should be more
 */
-Adafruit_BME680 bme; // for I2C (sets up the bme's default address of 0x77, can be changed to 0x76 by SDO to ground)
+Adafruit_BME680 bme(&Wire); // for I2C (sets up the bme's default address of 0x77, can be changed to 0x76 by SDO to ground)
+
+// Definitions from previous testing code
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 10
+#define SEALEVELPRESSURE_HPA (1013.25)
 
 /* Initialize
 -> Check if the sensor is there
@@ -42,6 +51,9 @@ bool BME_measure(BME_sensor &d){
         d.status = false;
         return false;
     }
+    else{
+        d.status = true;
+    }
 
     // Save the data to the struct
     d.temp = bme.temperature;
@@ -56,7 +68,7 @@ bool BME_measure(BME_sensor &d){
 -> Print the data that was saved in measure to the terminal
 -> More can be done, but this is all for now
 */
-bool BME_print(BME_sensor &d){
+bool BME_print(const BME_sensor &d){
     // skip if sensor is down
     if(!d.status) {
         Serial.println("BME680 is not functioning");

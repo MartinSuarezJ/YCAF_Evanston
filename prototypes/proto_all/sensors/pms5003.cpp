@@ -26,6 +26,9 @@ bool PMS_init(PMS_sensor &d){
     // Wait for sensor to boot up
     delay(10000);
 
+    // Set up for UART (from individual testing code)
+    Serial1.begin(9600, SERIAL_8N1, RX, TX); // Setting up the Serial port to even start UART
+    
     // Set up communication/connectivity?
     if (! aqi.begin_UART(&Serial1)) {
         Serial.println("Could not find the PMS5003 sensor!");
@@ -49,6 +52,9 @@ bool PMS_measure(PMS_sensor &d){
         Serial.println("PMS5003 failed to read");
         d.status = false;
         return false;
+    }
+    else{
+        d.status = true;
     }
 
     // Save the data to the struct

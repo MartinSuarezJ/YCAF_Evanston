@@ -16,8 +16,9 @@ void setup(){
     // Wait for sensor to boot up
     delay(10000);
 
+    Serial1.begin(9600, SERIAL_8N1, RX, TX); // Setting up the Serial port to even start UART
     // Set up communication/connectivity?
-    if (! aqi.begin_UART(&Serial1)) {
+    if (!aqi.begin_UART(&Serial1)) {
         Serial.println("Could not find PM 2.5 sensor!");
         while (1) delay(10);
     }
@@ -27,9 +28,9 @@ void setup(){
 void loop(){
     PM25_AQI_Data data;
 
+
     if (!aqi.read(&data)){
         Serial.println("Could not read from AQI");
-
         delay(500);
         return;
     }

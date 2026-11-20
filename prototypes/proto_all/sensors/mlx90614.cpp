@@ -1,7 +1,6 @@
 // functions for the mlx90614
 
 // Dependencies
-#include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_MLX90614.h>
 #include "sensors.h"
@@ -43,6 +42,9 @@ bool MLX_measure(MLX_sensor &d){
         Serial.println("MLX90614 still down, skipping measurement");
         d.status = false;
         return false;
+    }
+    else{
+        d.status = true;
     }
 
     // Save the data to the struct
